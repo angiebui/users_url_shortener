@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Welcome!</h1>
+
+<ul>
+  <% @users_urls.each do |url| %>
+    <li> <a href="/<%= url.short_url%>"> <%= url.short_url%></a> Visits: <%= url.click_count %></li>
+    <% end %>
+  </ul>
+
+  <form action="/user/logout" method="post">
+    <input type="submit" value="Log Out!">
+  </form>
+
+</div>
+

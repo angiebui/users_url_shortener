@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Shorten Your Url!</h1>
+  <% if session[:user_id] %>
+    <p>Welcome, <%= @user.name %>!</p>
+    <%="<p><a href='/user/" + @user.id.to_s + "'>My Profile</a></p>"%>
+    <form action="/user/logout" method="post">
+      <input type="submit" value="Log Out!">
+    </form>
+
+  <% else %> 
+    <p><a href='/user/signup'> Signup</a></p>
+    <p><a href='/user/login'> Login</a></p>
+  <% end %> 
+ 
+  <p><span id="new_url">
+    <% if @new_url %>
+      Your short URL:<%= @new_url.short_url %>
+    <% end %>
+  </span></p>
+
+  <p><span id="errors">
+    <% if @new_url%>
+      <% if @new_url.errors.full_messages %>
+      <%= @new_url.errors.full_messages.first %>
+    <% end %>
+    <% end %>
+  </span></p>
+
+  <form action="/urls" method="post">
+    Shorten a url here: 
+    <br>
+    <input type="text" name="long_url">
+    <input type="submit" value="Submit!">
+  </form>
+
+  <h5> Other Shortened URLs here:</h5>
+  <ul>
+    <% @url.each do |url| %>
+      <li><a href="/<%= url.short_url%>"> <%= url.short_url%></a></li>
+     <% end %>
+    </ul>
+</div>
+
